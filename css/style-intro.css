@@ -1,0 +1,42 @@
+/* css/style-intro.css */
+
+/* Penataan Latar Belakang */
+body {
+    background: radial-gradient(circle, #fffdf9 0%, #f7e8ea 100%);
+}
+
+/* Transisi Halus Global */
+* {
+    transition: opacity 0.5s ease-in-out, transform 0.3s ease-out;
+}
+
+/* Penempatan Kontainer Kue */
+#cake-container {
+    width: 250px;
+    height: 180px;
+    perspective: 1000px;
+}
+
+/* Styling Lilin Angka (Lebih Detail) */
+.number {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    position: relative;
+    top: -10px;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+}
+
+.number-pink {
+    color: #e91e63;
+}
+
+/* Partikel Kilauan */
+.sparkle-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: gold;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+}

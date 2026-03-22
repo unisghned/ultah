@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>A Special Surprise for Cia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="assets/giftbox.css">
+    <link rel="stylesheet" href="assets/cake.css">
+    <link rel="stylesheet" href="css/style-intro.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Perbaikan langsung untuk responsivitas kue */
+        @media (max-width: 480px) {
+            .cake-master-wrapper {
+                transform: scale(0.7); /* Mengecilkan seluruh elemen kue di HP */
+                transform-origin: center;
+            }
+            #surprise-text { font-size: 1.8rem !important; }
+            #wish-text { font-size: 0.85rem !important; bottom: 15% !important; }
+        }
+    </style>
+</head>
+<body class="bg-[#FFFDF9] font-['Quicksand'] text-[#333] overflow-hidden overscroll-none">
+
+    <main id="scene-container" class="relative w-full h-screen flex flex-col items-center justify-center p-4">
+        
+        <div id="gift-wrapper" class="relative z-50 flex flex-col items-center justify-center space-y-8 w-full max-w-sm">
+            <h1 id="initial-instruction" class="text-2xl md:text-3xl font-normal text-pink-600 opacity-0 text-center leading-relaxed px-4">
+                Halooo, wih ada hadiah nii<br>
+                <span class="font-semibold text-pink-700">Coba buka duluu kadonyaaa</span>
+            </h1>
+            <br>
+            <br>
+            <br>
+
+            <div id="pro-giftbox" class="giftbox cursor-pointer opacity-0 scale-50">
+                <div class="giftbox-body"><div class="giftbox-ribbon-v"></div></div>
+                <div class="giftbox-lid">
+                    <div class="giftbox-lid-flap"></div>
+                    <div class="giftbox-lid-ribbon-v"></div>
+                </div>
+                <div class="giftbox-shadow"></div>
+            </div>
+            
+            <p id="click-prompt" class="text-gray-400 font-normal italic opacity-0 text-sm">(Klik pada kotak kado)</p>
+        </div>
+        
+        <div id="cake-reveal-area" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center opacity-0 z-10 pointer-events-none p-4">
+            
+            <h1 id="surprise-text" class="text-3xl md:text-5xl font-['Pacifico'] text-pink-600 opacity-0 text-center mb-8 md:mb-12 px-4">
+                HIII selamat ulangg taunn yaa
+            </h1>
+            <br>
+            <br>
+            <br>
+            <br>
+            
+            <div class="cake-master-wrapper relative flex flex-col items-center">
+                <div id="cake-container" class="relative w-[250px] h-[180px]">
+                    <div id="layer-3" class="layer layer-bottom opacity-0"></div>
+                    <div id="layer-2" class="layer layer-middle opacity-0"></div>
+                    <div id="layer-1" class="layer layer-top opacity-0"></div>
+                    
+                    <div id="cream-overlay" class="absolute top-[-5px] left-1/2 -translate-x-1/2 w-[130px] h-[20px] bg-white rounded-full blur-[2px] opacity-0 z-20"></div>
+                    
+                    <div id="candle-16" class="absolute -top-16 left-1/2 -translate-x-1/2 flex space-x-2 z-30 opacity-0">
+                        <div class="number number-pink font-['Pacifico'] text-5xl text-[#e91e63] relative">1
+                            <div id="flame-1" class="flame hidden"></div>
+                        </div>
+                        <div class="number number-pink font-['Pacifico'] text-5xl text-[#e91e63] relative">6
+                            <div id="flame-6" class="flame hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pro-matchstick" class="matchstick absolute z-[60] opacity-0 pointer-events-none">
+                    <div class="matchstick-tip"></div>
+                    <div class="matchstick-shaft"></div>
+                    <div id="match-flame" class="match-flame"></div>
+                </div>
+            </div>
+            
+            <p id="wish-text" class="mt-8 md:mt-12 text-gray-600 italic text-center px-6 max-w-sm opacity-0 text-sm md:text-base">
+                "Make a wish dulu yaaa, kaloo udahh baru tiup lilinnya (diklick yaa)"
+            </p>
+        </div>
+
+    </main>
+    
+    <script src="js/script-intro.js"></script>
+</body>
+</html>

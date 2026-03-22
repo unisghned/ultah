@@ -1,0 +1,127 @@
+/* assets/giftbox.css */
+
+/* Container Kado 3D */
+.giftbox {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Bayangan */
+.giftbox-shadow {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 15px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    filter: blur(5px);
+}
+
+/* Badan Kado */
+.giftbox-body {
+    width: 100%;
+    height: 100%;
+    background: #FF69B4; /* Pink Utama */
+    position: absolute;
+    bottom: 0;
+    border-radius: 10px;
+    box-shadow: inset 0 -5px 15px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.2);
+    transform-origin: bottom center;
+}
+
+/* Pita Vertikal Badan */
+.giftbox-ribbon-v {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 100%;
+    background: #D81B60; /* Pink Gelap */
+}
+
+/* Tutup Kado */
+.giftbox-lid {
+    width: 160px;
+    height: 40px;
+    background: #FF85C1; /* Pink Terang */
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+    transform-origin: bottom right; /* Titip putar untuk animasi terbuka */
+    z-index: 10;
+}
+
+/* Samping Tutup */
+.giftbox-lid-flap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #F06292;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Pita Tutup */
+.giftbox-lid-ribbon-v {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 100%;
+    background: #C2185B;
+}
+
+/* Korek Api Kayu 3D */
+.matchstick {
+    width: 8px;
+    height: 90px;
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+.matchstick-shaft {
+    width: 100%;
+    height: 100%;
+    background: #e0ac69; /* Warna Kayu */
+    border-radius: 2px;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.matchstick-tip {
+    width: 12px;
+    height: 15px;
+    background: #5d4037; /* Warna Ujung Korek */
+    border-radius: 5px 5px 2px 2px;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.match-flame {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 15px;
+    height: 30px;
+    background: radial-gradient(#fff, #ffeb3b, #ff9800);
+    border-radius: 50% 50% 20% 20%;
+    filter: blur(1px);
+    transition: transform 0.3s ease-out;
+}
+
+.match-flame.ignited {
+    transform: translateX(-50%) scale(1);
+}

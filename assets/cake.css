@@ -1,0 +1,185 @@
+/* assets/cake.css */
+
+/* Container Utama Kue agar tetap di tengah */
+#cake-container {
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column-reverse; /* Layer disusun dari bawah ke atas */
+    align-items: center;
+    position: relative;
+}
+
+/* Base Layer Styling */
+.layer {
+    position: relative;
+    border-radius: 15px 15px 10px 10px;
+    background: #fdf5e6; /* Old Lace - Putih Gading agar terlihat */
+    box-shadow: 
+        inset 0 -8px 0 rgba(233, 30, 99, 0.1), /* Shadow Strawberry */
+        0 4px 10px rgba(0,0,0,0.05);
+    border: 2px solid #faebd7;
+    z-index: 10;
+}
+
+.layer-bottom { width: 220px; height: 60px; margin-bottom: 0; }
+.layer-middle { width: 170px; height: 50px; margin-bottom: -5px; z-index: 11; }
+.layer-top    { width: 120px; height: 45px; margin-bottom: -5px; z-index: 12; }
+
+/* Filling/Selai di tengah layer */
+.layer::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #ff80ab; /* Strawberry Pink fill */
+    transform: translateY(-50%);
+}
+
+/* Cream Liquid (Tetesan Cream) */
+#cream-overlay {
+    position: absolute;
+    top: 50px; /* Posisi jatuh di layer atas */
+    width: 130px;
+    height: 30px;
+    background: #ffffff;
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 20;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
+}
+
+/* Lilin Angka */
+.number {
+    font-family: 'Pacifico', cursive;
+    line-height: 1;
+    filter: drop-shadow(2px 2px 0px #c2185b);
+}
+
+/* Api Lilin (Presisi di atas angka) */
+.flame {
+    position: absolute;
+    top: -12px; /* Disesuaikan agar pas di atas angka */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 22px;
+    background: radial-gradient(#fff 20%, #ffd600 50%, #ff6d00 100%);
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 15px #ffab00;
+    animation: flicker 0.15s ease-in-out infinite alternate;
+}
+
+#cake-reveal-area {
+    display: none; /* Sembunyikan total di awal */
+    opacity: 0;
+    z-index: 10;
+}
+
+#cake-container {
+    perspective: 1000px;
+    z-index: 15;
+}
+
+/* === CREAM LIQUID (Dirombak Total) === */
+#cream-liquid-svg {
+    position: absolute;
+    top: 30px; /* Di atas layer paling atas */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 130px;
+    height: 100px;
+    z-index: 30;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+#cream-path {
+    fill: #FFFFFF;
+}
+
+/* Container Tetesan Cream untuk animasi terpisah */
+#drip-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 30px;
+    left: 0;
+    z-index: 25;
+}
+
+.drip {
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background: #FFFFFF;
+    border-radius: 50% 50% 0 0;
+    opacity: 0;
+    transform-origin: top center;
+}
+
+/* Posisi Tetesan */
+#drip-1 { left: 20%; height: 25px; }
+#drip-2 { left: 45%; height: 35px; }
+#drip-3 { left: 75%; height: 30px; }
+
+/* === LILIN & API (Direkonstruksi agar Realistis) === */
+
+/* Lilin Angka 16 */
+#candle-16 {
+    position: absolute;
+    bottom: 0; /* Dirombak: Mulai dari base layer, bukan top */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Sumbu di atas */
+    width: 80px;
+    z-index: 40;
+    perspective: 500px;
+}
+
+.number {
+    font-family: 'Pacifico', cursive;
+    color: #e91e63;
+    font-size: 3.5rem;
+    line-height: 1;
+    position: relative;
+    top: 5px; /* Offset agar angka terlihat 'duduk' */
+}
+
+/* Lilin Kecil di Atas Angka (Untuk api menempel) */
+.wick {
+    position: absolute;
+    top: -15px; /* Tepat di atas sumbu angka */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 15px;
+    background: #333; /* Warna Sumbu */
+    border-radius: 2px;
+}
+
+/* Api Lilin (Sekarang presisi di atas wick) */
+.flame {
+    position: absolute;
+    top: -20px; /* Tepat di atas wick */
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 12px;
+    height: 25px;
+    background: radial-gradient(#fff 20%, #ffeb3b 40%, #ff9800 60%);
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.7);
+    filter: blur(0.5px);
+    z-index: 50;
+    opacity: 0;
+}
+
+/* Korek Api (CSS Drawing) */
+#matchstick {
+    display: none;
+    z-index: 60;
+    /* ... (CSS Drawing Korek sama seperti sebelumnya) ... */
+}

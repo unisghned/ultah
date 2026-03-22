@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Happy 16th Birthday Valencia Sudirman!</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.6.0/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --pink-light: #FFF5F7;
+            --pink-medium: #f472b6;
+            --pink-dark: #db2777;
+            --envelope-w: 300px;
+            --envelope-h: 200px;
+        }
+
+        /* --- BASIC RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--pink-light); 
+            color: #333; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
+        }
+        .font-pacifico { font-family: 'Pacifico', cursive; }
+
+        /* --- 1. NAVBAR (ALWAYS ON TOP) --- */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%; 
+            z-index: 100000; /* Kunci mati paling atas */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid rgba(219, 39, 119, 0.1);
+            display: flex; justify-content: center; align-items: center;
+            gap: 20px; padding: 18px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .nav-link { 
+            font-weight: 800; color: var(--pink-dark); font-size: 0.8rem; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--pink-medium); transform: scale(1.05); }
+
+        /* --- 2. HERO SECTION --- */
+        .section-intro {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 120px 20px 60px 20px;
+            position: relative;
+            background: radial-gradient(circle at center, #ffffff 0%, #ffe4ec 100%);
+        }
+
+        .title-area { 
+            position: relative; 
+            z-index: 10; /* Rendah agar surat bisa menutupinya */
+            text-align: center; 
+            margin-bottom: 60px; 
+        }
+
+        /* --- 3. THE ENVELOPE (ANTI-NEMBUS ENGINE) --- */
+        .envelope-container { 
+            position: relative; 
+            width: var(--envelope-w); 
+            height: var(--envelope-h); 
+            perspective: 2500px; 
+            z-index: 50; 
+        }
+
+        .envelope-wrapper { 
+            position: relative; 
+            width: 100%; height: 100%; 
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+
+        /* Amplop bergeser turun saat terbuka agar surat punya ruang ke atas */
+        .is-open-container { transform: translateY(130px); }
+
+        .envelope-back { 
+            position: absolute; inset: 0; 
+            background: #e14d8f; 
+            border-radius: 0 0 15px 15px; 
+            z-index: 5; 
+        }
+
+        /* SURAT (LAYER 80.000) */
+        .letter-card {
+            position: absolute; bottom: 5px; left: 5%; width: 90%; height: 90%;
+            background: white; border-radius: 12px; padding: 30px;
+            z-index: 10; opacity: 0; visibility: hidden;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .is-open .letter-card {
+            visibility: visible; opacity: 1;
+            transform: translateY(-330px); /* Keluar maksimal ke atas */
+            height: 420px;
+            z-index: 80000; /* DI ATAS JUDUL, DI BAWAH NAVBAR */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+            overflow-y: auto;
+        }
+
+        .envelope-front {
+            position: absolute; inset: 0; background: var(--pink-medium); z-index: 30;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 50%, 100% 0);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .envelope-flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 110px; z-index: 40;
+            transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flap-svg { width: 100%; height: 100%; fill: var(--pink-dark); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+
+        .is-open .envelope-flap { transform: rotateX(180deg); z-index: 0; }
+
+        /* --- 4. CAROUSEL SECTION --- */
+        .carousel-viewport {
+            width: 100%; max-width: 400px; aspect-ratio: 1/1; margin: 0 auto;
+            overflow: hidden; border-radius: 25px; border: 10px solid white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1); position: relative;
+        }
+        .carousel-track { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slide { min-width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: 0.3s; }
+        .dot.active { background: var(--pink-dark); width: 24px; }
+
+        /* --- 5. WISHES GRID --- */
+        .friend-card {
+            background: white; border-radius: 25px; padding: 40px 20px;
+            text-align: center; border-bottom: 6px solid var(--pink-medium);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+        }
+        .friend-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+        /* --- 6. POPUP OVERLAY --- */
+        #pop-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 90000; display: none; justify-content: center; align-items: center; padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .pop-content { position: relative; width: 100%; max-width: 600px; }
+        .pop-img { width: 100%; border-radius: 15px; border: 4px solid white; box-shadow: 0 0 50px rgba(219,39,119,0.3); }
+        .close-pop { position: absolute; top: -50px; right: 0; color: white; font-weight: 900; background: var(--pink-dark); padding: 8px 20px; border-radius: 20px; }
+
+        /* Decor */
+        .heart-particle { position: absolute; pointer-events: none; animation: float 6s infinite linear; opacity: 0.4; color: var(--pink-medium); }
+        @keyframes float { 
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-link" onclick="scrollToSec('home')">Surprise</div>
+        <div class="nav-link" onclick="scrollToSec('memories')">Memories</div>
+        <div class="nav-link" onclick="scrollToSec('wishes')">Wishes</div>
+    </nav>
+
+    <section id="home" class="section-intro">
+        <div id="heart-container" class="absolute inset-0 overflow-hidden"></div>
+
+        <div class="title-area">
+            <h1 class="text-4xl md:text-7xl text-pink-600 font-pacifico leading-tight">Happy Sweet 16, Cia!</h1>
+            <p class="text-gray-400 mt-4 font-bold tracking-[0.2em] uppercase text-xs" id="main-hint">Ketuk amplop di bawah ini</p>
+        </div>
+
+        <div class="envelope-container" onclick="toggleEnvelope()">
+            <div class="envelope-wrapper" id="env-wrapper">
+                <div class="envelope-back"></div>
+                
+                <div class="letter-card">
+                    <div class="text-left space-y-5">
+                        <h2 class="font-pacifico text-pink-600 text-2xl">Halo Valencia Sudirman,</h2>
+                        <div class="text-gray-700 text-sm md:text-base leading-relaxed space-y-4">
+                            <p>Selamat ulang tahun yang ke-16! 🎉 Akhirnya sampai juga di umur "Sweet 16".</p>
+                            <p>Semoga di tahun ini kamu makin bahagia, semua cita-citamu dipermudah jalan-Nya, dan terus jadi Cia yang luar biasa.</p>
+                            <p>Terima kasih ya sudah hadir dan jadi bagian dari cerita seru kita di SMA Talenta. *Enjoy your special day!*</p>
+                            <div class="pt-6 border-t border-pink-50 text-center">
+                                <p class="font-bold text-pink-500 text-xl italic">Have a blast! 👑✨</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="envelope-front"></div>
+                <div class="envelope-flap">
+                    <svg class="flap-svg" viewBox="0 0 300 110" preserveAspectRatio="none">
+                        <path d="M0 0 L150 100 L300 0 Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="memories" class="py-24 bg-white">
+        <h2 class="text-center font-pacifico text-4xl text-pink-500 mb-16">Sweet Memories</h2>
+        <div class="carousel-viewport">
+            <div class="carousel-track" id="track">
+                <div class="slide"><img src="assets/img/foto1.jpg"></div>
+                <div class="slide"><img src="assets/img/foto2.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-center mt-10 gap-6">
+            <div class="flex gap-4">
+                <button onclick="moveSlide(-1)" class="w-12 h-12 bg-pink-100 rounded-full text-pink-600 font-bold hover:bg-pink-600 hover:text-white transition">❮</button>
+                <button onclick="moveSlide(1)" class="w-12 h-12 bg-pink-100 rounded-full text-pink-600 font-bold hover:bg-pink-600 hover:text-white transition">❯</button>
+            </div>
+            <div class="flex gap-2" id="dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wishes" class="py-24 px-6">
+        <h2 class="text-center font-pacifico text-4xl text-pink-500 mb-16">Wishes from Friends</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div class="friend-card" onclick="openPop('assets/Chika.jpeg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">C</div>
+                <p class="font-bold text-gray-800">Chika</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/Nefit.jpeg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">N</div>
+                <p class="font-bold text-gray-800">Nefit</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">A</div>
+                <p class="font-bold text-gray-800">Audi</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">N</div>
+                <p class="font-bold text-gray-800">Naomi</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">E</div>
+                <p class="font-bold text-gray-800">Enda</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">T</div>
+                <p class="font-bold text-gray-800">Tya</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">E</div>
+                <p class="font-bold text-gray-800">Eleonora</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">A</div>
+                <p class="font-bold text-gray-800">Alex</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">R</div>
+                <p class="font-bold text-gray-800">Raffael</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">F</div>
+                <p class="font-bold text-gray-800">Ferdi</p>
+                <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
+            </div>
+            </div>
+    </section>
+
+    <footer class="py-20 text-center border-t border-pink-50">
+        <p class="text-pink-400 font-pacifico text-2xl mb-4">Enjoy Your Day, Valencia!</p>
+        <p class="text-gray-300 text-xs tracking-widest uppercase">Made with ❤️ by Kleon</p>
+    </footer>
+
+    <div id="pop-overlay" onclick="closePop()">
+        <div class="pop-content" onclick="event.stopPropagation()">
+            <button class="close-pop" onclick="closePop()">CLOSE (X)</button>
+            <img id="pop-img" src="" class="pop-img">
+        </div>
+    </div>
+
+    <script>
+        // --- ENVELOPE LOGIC ---
+        let isOpened = false;
+        function toggleEnvelope() {
+            const wrap = document.getElementById('env-wrapper');
+            const hint = document.getElementById('main-hint');
+            isOpened = !isOpened;
+
+            if(isOpened) {
+                wrap.classList.add('is-open');
+                wrap.parentElement.classList.add('is-open-container');
+                hint.innerText = "Klik lagi untuk menutup amplop";
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            } else {
+                wrap.classList.remove('is-open');
+                wrap.parentElement.classList.remove('is-open-container');
+                hint.innerText = "Ketuk amplop di bawah ini";
+            }
+        }
+
+        // --- CAROUSEL LOGIC ---
+        let currentIdx = 0;
+        const track = document.getElementById('track');
+        const dots = document.querySelectorAll('.dot');
+        function moveSlide(n) {
+            const total = document.querySelectorAll('.slide').length;
+            currentIdx = (currentIdx + n + total) % total;
+            track.style.transform = `translateX(-${currentIdx * 100}%)`;
+            
+            // Update Dots
+            dots.forEach((d, i) => {
+                i === currentIdx ? d.classList.add('active') : d.classList.remove('active');
+            });
+        }
+
+        // --- POPUP LOGIC ---
+        function openPop(src) {
+            document.getElementById('pop-img').src = src;
+            document.getElementById('pop-overlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePop() {
+            document.getElementById('pop-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- SMOOTH SCROLL ---
+        function scrollToSec(id) {
+            const target = document.getElementById(id);
+            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        // --- BACKGROUND HEARTS ---
+        const heartContainer = document.getElementById('heart-container');
+        function createHeart() {
+            const h = document.createElement('div');
+            h.innerHTML = '❤';
+            h.className = 'heart-particle';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heartContainer.appendChild(h);
+            setTimeout(() => h.remove(), 6000);
+        }
+        setInterval(createHeart, 800);
+    </script>
+</body>
+</html>
