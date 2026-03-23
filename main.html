@@ -124,17 +124,67 @@
         .is-open .envelope-flap { transform: rotateX(180deg); z-index: 0; }
 
         /* --- 4. CAROUSEL SECTION --- */
+        /* Container Utama Carousel */
         .carousel-viewport {
-            width: 100%; max-width: 400px; aspect-ratio: 1/1; margin: 0 auto;
-            overflow: hidden; border-radius: 25px; border: 10px solid white;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1); position: relative;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 25px;
+            border: 10px solid white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            position: relative;
+            background: #000; /* Biar video item tidak belang */
         }
-        .carousel-track { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
-        .slide { min-width: 100%; height: 100%; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; transition: 0.3s; }
-        .dot.active { background: var(--pink-dark); width: 24px; }
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img, .slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SLIDING DOTS LOGIC */
+        #dots-viewport {
+            width: 120px; /* Membatasi agar hanya terlihat sekitar 5 dots */
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #dots {
+            display: flex;
+            gap: 10px;
+            transition: transform 0.4s ease;
+            padding: 10px 0;
+            width: max-content;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .dot.active {
+            background: var(--pink-dark);
+            width: 24px;
+            border-radius: 10px;
+        }
 
         /* --- 5. WISHES GRID --- */
         .friend-card {
@@ -211,19 +261,50 @@
         <h2 class="text-center font-pacifico text-4xl text-pink-500 mb-16">Sweet Memories</h2>
         <div class="carousel-viewport">
             <div class="carousel-track" id="track">
+                <div class="slide"><img src="assets/1.jpeg"></div>
+                <div class="slide"><img src="assets/2.jpeg"></div>
+                <div class="slide"><img src="assets/3.jpeg"></div>
+                <div class="slide"><img src="assets/4.jpeg"></div>
+                <div class="slide"><img src="assets/5.jpeg"></div>
+                <div class="slide"><img src="assets/6.jpeg"></div>
+                <div class="slide relative overflow-hidden bg-black">
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                        <source src="assets/V7.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung video.
+                    </video>
+                    <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                </div>
                 <div class="slide"><img src="assets/img/foto1.jpg"></div>
                 <div class="slide"><img src="assets/img/foto2.jpg"></div>
                 <div class="slide"><img src="assets/img/foto3.jpg"></div>
                 <div class="slide"><img src="assets/img/foto1.jpg"></div>
                 <div class="slide"><img src="assets/img/foto2.jpg"></div>
+                <div class="slide relative overflow-hidden bg-black">
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                        <source src="assets/V3.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung video.
+                    </video>
+                    <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                </div>
                 <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide relative overflow-hidden bg-black">
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                        <source src="assets/V6.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung video.
+                    </video>
+                    <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                </div>
                 <div class="slide"><img src="assets/img/foto1.jpg"></div>
                 <div class="slide"><img src="assets/img/foto2.jpg"></div>
                 <div class="slide"><img src="assets/img/foto3.jpg"></div>
-                <div class="slide"><img src="assets/img/foto1.jpg"></div>
-                <div class="slide"><img src="assets/img/foto2.jpg"></div>
-                <div class="slide"><img src="assets/img/foto3.jpg"></div>
-                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide relative overflow-hidden bg-black">
+                    <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+                        <source src="assets/V4.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung video.
+                    </video>
+                    <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                </div>
             </div>
         </div>
         
@@ -232,20 +313,10 @@
                 <button onclick="moveSlide(-1)" class="w-12 h-12 bg-pink-100 rounded-full text-pink-600 font-bold hover:bg-pink-600 hover:text-white transition">❮</button>
                 <button onclick="moveSlide(1)" class="w-12 h-12 bg-pink-100 rounded-full text-pink-600 font-bold hover:bg-pink-600 hover:text-white transition">❯</button>
             </div>
-            <div class="flex gap-2" id="dots">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            
+            <div id="dots-viewport">
+                <div id="dots">
+                    </div>
             </div>
         </div>
     </section>
@@ -263,48 +334,48 @@
                 <p class="font-bold text-gray-800">Nefit</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Audi.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">A</div>
                 <p class="font-bold text-gray-800">Audi</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Naomi.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">N</div>
                 <p class="font-bold text-gray-800">Naomi</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Enda.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">E</div>
                 <p class="font-bold text-gray-800">Enda</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Tya.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">T</div>
                 <p class="font-bold text-gray-800">Tya</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Eleonora.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">E</div>
                 <p class="font-bold text-gray-800">Eleonora</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Alex.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">A</div>
                 <p class="font-bold text-gray-800">Alex</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Raffael.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">R</div>
                 <p class="font-bold text-gray-800">Raffael</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
-            <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
+            <div class="friend-card" onclick="openPop('assets/Deco.jpg')">
                 <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">R</div>
                 <p class="font-bold text-gray-800">Deco</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
 
-            <div class="friend-card group" onclick="openVideoPop('assets/hasiljadi2425.mp4', 'Rm Rudy')">
+            <div class="friend-card group" onclick="openVideoPop('assets/RmRudi.mp4', 'Mo Udy')">
                 <div class="relative w-20 h-20 mx-auto mb-4">
                     <div class="absolute inset-0 bg-pink-200 rounded-full animate-pulse group-hover:scale-110 transition"></div>
                     <div class="relative z-10 w-full h-full bg-white rounded-full flex items-center justify-center font-bold text-pink-600 text-2xl shadow-md border-2 border-pink-100">R</div>
@@ -312,11 +383,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4"><path d="M8 5v14l11-7z" /></svg>
                     </div>
                 </div>
-                <p class="font-bold text-gray-800">Romo Rudy</p>
+                <p class="font-bold text-gray-800">Romo Rudi</p>
                 <p class="text-[10px] text-pink-400 mt-1 uppercase tracking-widest font-bold italic">Watch Video</p>
             </div>
             
-            <div class="friend-card group" onclick="openVideoPop('assets/hasiljadi2425.mp4', 'Rm Ardhi')">
+            <div class="friend-card group" onclick="openVideoPop('assets/RmArdhi.mp4', 'Rm Ardhi')">
                 <div class="relative w-20 h-20 mx-auto mb-4">
                     <div class="absolute inset-0 bg-pink-200 rounded-full animate-pulse group-hover:scale-110 transition"></div>
                     <div class="relative z-10 w-full h-full bg-white rounded-full flex items-center justify-center font-bold text-pink-600 text-2xl shadow-md border-2 border-pink-100">R</div>
@@ -378,16 +449,72 @@
             }
         }
 
-        // --- CAROUSEL LOGIC ---
+       // --- CAROUSEL LOGIC (AUTO DOTS & AUTOPLAY COMPATIBLE) ---
+        // --- CAROUSEL LOGIC WITH SLIDING DOTS ---
         let currentIdx = 0;
         const track = document.getElementById('track');
-        const dots = document.querySelectorAll('.dot');
-        function moveSlide(n) {
-            const total = document.querySelectorAll('.slide').length;
-            currentIdx = (currentIdx + n + total) % total;
-            track.style.transform = `translateX(-${currentIdx * 100}%)`;
-            dots.forEach((d, i) => i === currentIdx ? d.classList.add('active') : d.classList.remove('active'));
+        const dotsTrack = document.getElementById('dots');
+
+        function initCarousel() {
+            const slides = document.querySelectorAll('.slide');
+            
+            dotsTrack.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = `dot ${i === 0 ? 'active' : ''}`;
+                dot.onclick = () => jumpToSlide(i);
+                dotsTrack.appendChild(dot);
+            });
+            updateDotsPosition(); // Inisialisasi posisi awal
         }
+
+        function moveSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            currentIdx = (currentIdx + n + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        function jumpToSlide(index) {
+            currentIdx = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const allDots = document.querySelectorAll('.dot');
+            
+            // Geser foto utama
+            track.style.transform = `translateX(-${currentIdx * 100}%)`;
+            
+            // Update class active pada dot
+            allDots.forEach((d, i) => {
+                i === currentIdx ? d.classList.add('active') : d.classList.remove('active');
+            });
+
+            updateDotsPosition();
+        }
+
+        function updateDotsPosition() {
+            // Logika untuk menggeser track dots
+            // Jarak antar dot + gap = sekitar 16px (8px dot + 8px gap)
+            const dotWidthWithGap = 16; 
+            const maxVisible = 5;
+            
+            // Jika index lebih dari 2, mulai geser track agar dot aktif tetap di tengah
+            if (currentIdx >= 2) {
+                const moveDistance = (currentIdx - 2) * dotWidthWithGap;
+                dotsTrack.style.transform = `translateX(-${moveDistance}px)`;
+            } else {
+                dotsTrack.style.transform = `translateX(0px)`;
+            }
+        }
+
+window.addEventListener('DOMContentLoaded', initCarousel);
+
+// Panggil fungsi saat halaman selesai dimuat
+window.addEventListener('DOMContentLoaded', initCarousel);
+
+        // Jalankan inisialisasi saat halaman selesai dimuat
+        window.addEventListener('DOMContentLoaded', initCarousel);
 
         // --- PHOTO POPUP LOGIC ---
         function openPop(src) {
