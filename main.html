@@ -102,9 +102,9 @@
 
         .is-open .letter-card {
             visibility: visible; opacity: 1;
-            transform: translateY(-330px); /* Keluar maksimal ke atas */
-            height: 420px;
-            z-index: 80000; /* DI ATAS JUDUL, DI BAWAH NAVBAR */
+            transform: translateY(-210px); /* Keluar maksimal ke atas */
+            height: 380px;
+            z-index:80000; /* DI ATAS JUDUL, DI BAWAH NAVBAR */
             box-shadow: 0 30px 60px rgba(0,0,0,0.18);
             overflow-y: auto;
         }
@@ -214,6 +214,16 @@
                 <div class="slide"><img src="assets/img/foto1.jpg"></div>
                 <div class="slide"><img src="assets/img/foto2.jpg"></div>
                 <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide"><img src="assets/img/foto1.jpg"></div>
+                <div class="slide"><img src="assets/img/foto2.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide"><img src="assets/img/foto1.jpg"></div>
+                <div class="slide"><img src="assets/img/foto2.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide"><img src="assets/img/foto1.jpg"></div>
+                <div class="slide"><img src="assets/img/foto2.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
+                <div class="slide"><img src="assets/img/foto3.jpg"></div>
             </div>
         </div>
         
@@ -224,6 +234,16 @@
             </div>
             <div class="flex gap-2" id="dots">
                 <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
@@ -279,38 +299,78 @@
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
             <div class="friend-card" onclick="openPop('assets/img/pesan-cia2.jpg')">
-                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">F</div>
-                <p class="font-bold text-gray-800">Ferdi</p>
+                <div class="w-20 h-20 bg-pink-50 rounded-full mx-auto mb-4 flex items-center justify-center font-bold text-pink-600 text-2xl shadow-inner">R</div>
+                <p class="font-bold text-gray-800">Deco</p>
                 <p class="text-xs text-pink-400 mt-2 italic font-bold">Tap to read</p>
             </div>
+
+            <div class="friend-card group" onclick="openVideoPop('assets/hasiljadi2425.mp4', 'Rm Rudy')">
+                <div class="relative w-20 h-20 mx-auto mb-4">
+                    <div class="absolute inset-0 bg-pink-200 rounded-full animate-pulse group-hover:scale-110 transition"></div>
+                    <div class="relative z-10 w-full h-full bg-white rounded-full flex items-center justify-center font-bold text-pink-600 text-2xl shadow-md border-2 border-pink-100">R</div>
+                    <div class="absolute bottom-0 right-0 bg-pink-600 text-white p-1.5 rounded-full shadow-lg border-2 border-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4"><path d="M8 5v14l11-7z" /></svg>
+                    </div>
+                </div>
+                <p class="font-bold text-gray-800">Romo Rudy</p>
+                <p class="text-[10px] text-pink-400 mt-1 uppercase tracking-widest font-bold italic">Watch Video</p>
+            </div>
+            
+            <div class="friend-card group" onclick="openVideoPop('assets/hasiljadi2425.mp4', 'Rm Ardhi')">
+                <div class="relative w-20 h-20 mx-auto mb-4">
+                    <div class="absolute inset-0 bg-pink-200 rounded-full animate-pulse group-hover:scale-110 transition"></div>
+                    <div class="relative z-10 w-full h-full bg-white rounded-full flex items-center justify-center font-bold text-pink-600 text-2xl shadow-md border-2 border-pink-100">R</div>
+                    <div class="absolute bottom-0 right-0 bg-pink-600 text-white p-1.5 rounded-full shadow-lg border-2 border-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4"><path d="M8 5v14l11-7z" /></svg>
+                    </div>
+                </div>
+                <p class="font-bold text-gray-800">Romo Ardhi</p>
+                <p class="text-[10px] text-pink-400 mt-1 uppercase tracking-widest font-bold italic">Watch Video</p>
+            </div>
+
             </div>
     </section>
 
     <footer class="py-20 text-center border-t border-pink-50">
-        <p class="text-pink-400 font-pacifico text-2xl mb-4">Enjoy Your Day, Valencia!</p>
-        <p class="text-gray-300 text-xs tracking-widest uppercase">Made with ❤️ by Kleon</p>
+        <p class="text-pink-400 font-pacifico text-2xl mb-4">Enjoy Your Day, Ciaaa!</p>
+        <p class="text-gray-300 text-xs tracking-widest uppercase">disponsori oleh temen teman kau</p>
     </footer>
 
-    <div id="pop-overlay" onclick="closePop()">
+   <div id="pop-overlay" onclick="closePop()">
         <div class="pop-content" onclick="event.stopPropagation()">
             <button class="close-pop" onclick="closePop()">CLOSE (X)</button>
             <img id="pop-img" src="" class="pop-img">
         </div>
     </div>
 
+    <div id="video-overlay" class="fixed inset-0 bg-black/95 z-[99999] hidden flex-col items-center justify-center p-4 backdrop-blur-md" onclick="closeVideoPop()">
+        <div class="relative w-full max-w-3xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/10" onclick="event.stopPropagation()">
+            <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/70 to-transparent">
+                <p id="video-sender" class="text-white font-['Pacifico'] text-lg md:text-xl drop-shadow-md"></p>
+                <button class="bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition-all" onclick="closeVideoPop()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <video id="main-video-player" class="w-full h-full object-contain" controls playsinline>
+                <source id="video-source" src="" type="video/mp4">
+                Browser kamu tidak mendukung pemutaran video.
+            </video>
+        </div>
+        <p class="mt-4 text-white/60 text-sm italic">Klik di mana saja untuk menutup</p>
+    </div>  
+
     <script>
-        // --- ENVELOPE LOGIC ---
+       // --- ENVELOPE LOGIC ---
         let isOpened = false;
         function toggleEnvelope() {
             const wrap = document.getElementById('env-wrapper');
             const hint = document.getElementById('main-hint');
             isOpened = !isOpened;
-
             if(isOpened) {
                 wrap.classList.add('is-open');
                 wrap.parentElement.classList.add('is-open-container');
                 hint.innerText = "Klik lagi untuk menutup amplop";
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.5 } });
             } else {
                 wrap.classList.remove('is-open');
                 wrap.parentElement.classList.remove('is-open-container');
@@ -326,14 +386,10 @@
             const total = document.querySelectorAll('.slide').length;
             currentIdx = (currentIdx + n + total) % total;
             track.style.transform = `translateX(-${currentIdx * 100}%)`;
-            
-            // Update Dots
-            dots.forEach((d, i) => {
-                i === currentIdx ? d.classList.add('active') : d.classList.remove('active');
-            });
+            dots.forEach((d, i) => i === currentIdx ? d.classList.add('active') : d.classList.remove('active'));
         }
 
-        // --- POPUP LOGIC ---
+        // --- PHOTO POPUP LOGIC ---
         function openPop(src) {
             document.getElementById('pop-img').src = src;
             document.getElementById('pop-overlay').style.display = 'flex';
@@ -341,6 +397,29 @@
         }
         function closePop() {
             document.getElementById('pop-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // --- VIDEO POPUP LOGIC ---
+        function openVideoPop(videoSrc, senderName) {
+            const overlay = document.getElementById('video-overlay');
+            const player = document.getElementById('main-video-player');
+            const source = document.getElementById('video-source');
+            const senderText = document.getElementById('video-sender');
+            senderText.innerText = "From: " + senderName;
+            source.src = videoSrc;
+            player.load();
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            player.play();
+            document.body.style.overflow = 'hidden';
+        }
+        function closeVideoPop() {
+            const overlay = document.getElementById('video-overlay');
+            const player = document.getElementById('main-video-player');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+            player.pause();
             document.body.style.overflow = 'auto';
         }
 
@@ -364,5 +443,6 @@
         }
         setInterval(createHeart, 800);
     </script>
+</div>
 </body>
 </html>
